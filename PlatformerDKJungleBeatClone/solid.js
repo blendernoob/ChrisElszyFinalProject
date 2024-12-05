@@ -1,3 +1,5 @@
+//original platformer game created by L0808866
+
 class Solid {
   constructor(x, y,img) {
     this.pos = createVector(x, y);

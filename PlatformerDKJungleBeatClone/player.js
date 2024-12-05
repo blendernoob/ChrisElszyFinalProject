@@ -1,10 +1,13 @@
 //original platformer game created by L0808866
+//modified by me to support the arduino
 
+//variables relating to the movement buffer
 var isMovingLeft;
 var isMovingRight;
 
 var movementBuffer = 8;
 
+//the actual class about the player
 class Player 
 {
 
@@ -18,7 +21,7 @@ class Player
     this.spriteSize = 96
     this.injured = false;
     this.injuryTimer = 0;
-    this.animationTimer = 0;
+    this.animationTimer = 1;
     this.lives = 1;
     // items/keys/etc...
     this.keys = 0;
@@ -204,6 +207,8 @@ class Player
 
   jump() 
   {
+    //if the movement buffer is not 0 we can keep moving to the direction we were moving in
+    // we are given a boost too to make things easier 
     if(isMovingLeft)
       {
         this.pos.x -= 10;
@@ -231,7 +236,8 @@ class Player
 
   processInput() 
   {
-    //if (keyIsDown(LEFT_ARROW))
+    //if we touch correct capacitive touch button we can move in that direction
+    // it also flips the isMoving variable around
     if(latestData == "X")
     {
       movementBuffer = 10;
@@ -269,11 +275,12 @@ class Player
       }
     }
     if(latestData == "CLP")
-    //if (keyIsDown(UP_ARROW)) 
     {
       this.jump();
     }
     
+    //checks if the movementBuffer has juice left in it
+    //if so we can get the movement boost from jumping
     if(latestData == "o" && movementBuffer <= 0)
       {
         isMovingLeft = false;
@@ -289,6 +296,8 @@ class Player
     //the timer counts down once we stop moving so the player can get a buffer before isMoving is false;
     movementBuffer -= 0.1;
     
+    //configures the lives of the character
+    //we will have one life and each time we lose we will have to relaod the page
     for (var i = 0; i < this.lives; i++) 
     {
       image(tiles_image, i * 25, 10, 50, 50, 11 * 64, 4 * 64, 64, 64)

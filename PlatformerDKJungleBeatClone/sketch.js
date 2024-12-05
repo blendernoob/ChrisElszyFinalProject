@@ -1,8 +1,12 @@
 //original platformer game created by L0808866
 
+//allows us to communicate with the serial port on the PCB
 var serial;
 var latestData = "waiting for data";
 
+var 
+
+//the map editor. Each number is a different tile
 var level1 = [
   [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
   [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
@@ -35,7 +39,8 @@ function setup()
   player_injured_image.filter(THRESHOLD);
   player = new Player();
   map1 = new Map(level1);
-  
+ 
+  //from the original P5.serialControl template
   serial = new p5.SerialPort();
 
   serial.list();
